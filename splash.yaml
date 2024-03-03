@@ -1,13 +1,13 @@
 flutter_native_splash:
   color: "#FFFFFF"
 #  color_dark: "#272727"
-  image: assets/logos/freshly_stacked_again.png
+  image: assets/logos/freshly_side.png
 #  image_dark: lib/assets/logos/cantaloupe_again_again.png
 
   android_12:
     color: "#FFFFFF"
 #    color_dark: "#272727"
-    image: assets/logos/freshly_stacked_again.png
+    image: assets/logos/freshly_side.png
  #   image_dark: lib/assets/logos/cantaloupe_again_again.png
 
   web: false

@@ -1,3 +1,4 @@
+import 'package:freshly/features/shop/screens/settings/settings.dart';
 import 'package:freshly/features/shop/screens/upload/upload.dart';
 import 'package:freshly/utils/constants/colors.dart';
 import 'package:freshly/utils/helpers/helper_functions.dart';
@@ -47,5 +48,5 @@ class NavMenu extends StatelessWidget {
 class NavController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const HomeScreen(), Container(color: Colors.purple), const UploadProduce(), Container(color: Colors.blue), Container(color: Colors.pink)];
+  final screens = [const HomeScreen(), Container(color: Colors.purple), const UploadProduce(), Container(color: Colors.blue), const SettingsScreen()];
 }
