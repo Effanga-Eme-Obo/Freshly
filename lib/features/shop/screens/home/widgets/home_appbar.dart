@@ -27,7 +27,7 @@ class MHomeAppbar extends StatelessWidget {
                   .apply(color: MColors.white)),
         ],
       ),
-      actions: [
+      actions: const [
         //MCartCounterIcon(onPressed: (){}, iconColor: MColors.white),
       ],
     );

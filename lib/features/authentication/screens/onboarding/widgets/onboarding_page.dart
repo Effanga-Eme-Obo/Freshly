@@ -26,13 +26,13 @@ class OnboardingPage extends StatelessWidget {
           Container(
             width: 450,
             height: 400,
-            padding: EdgeInsets.all(50),
+            padding: const EdgeInsets.all(50),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: AssetImage(image),
                 fit: BoxFit.cover,
-                alignment: Alignment(-0.001, 0.0),
+                alignment: const Alignment(-0.001, 0.0),
               ),
             ),
             ),

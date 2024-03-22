@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
@@ -15,19 +14,15 @@ class MSocialButtons extends StatelessWidget {
       children: [
 
         /// Google
-        Container(
-          child: SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(onPressed: (){}, icon: Image.asset('assets/logos/google24.png'), label: Text('Continue with Google'))),
-        ),
+        SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(onPressed: (){}, icon: Image.asset('assets/logos/google24.png'), label: const Text('Continue with Google'))),
         const SizedBox(height: MSizes.spaceBtwnItems),
 
         /// Facebook
-        Container(
-          child: SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(onPressed: () {}, icon: Image.asset('assets/logos/facebook30.png'), label: Text('Continue with Facebook'))),
-        ),
+        SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(onPressed: () {}, icon: Image.asset('assets/logos/facebook30.png'), label: const Text('Continue with Facebook'))),
       ],
     );
   }

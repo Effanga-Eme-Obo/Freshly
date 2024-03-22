@@ -14,7 +14,7 @@ class ForgotPassword extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.all(MSizes.defaultSpace),
+        padding: const EdgeInsets.all(MSizes.defaultSpace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,7 +31,7 @@ class ForgotPassword extends StatelessWidget {
         const SizedBox(height: MSizes.spaceBtwnSections),
 
             /// Submit Button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => ResetPassword()), child: Text(Mtexts.submit))),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const ResetPassword()), child: const Text(Mtexts.submit))),
           ],
         ),
       ),

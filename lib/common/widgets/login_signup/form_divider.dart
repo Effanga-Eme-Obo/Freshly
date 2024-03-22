@@ -20,7 +20,7 @@ class MFormDivider extends StatelessWidget {
                 thickness: 0.5,
                 indent: 60,
                 endIndent: 5)),
-        Text('  Or  ',
+        const Text('  Or  ',
             style: TextStyle(fontFamily: 'DM Sans')),
         Flexible(
             child: Divider(

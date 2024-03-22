@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:freshly/features/shop/screens/home/home.dart';
+import 'package:freshly/features/shop/screens/upload/storage_service.dart';
 import 'package:freshly/utils/constants/sizes.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/colors.dart';
@@ -22,10 +24,11 @@ class UploadProduce extends StatefulWidget {
 class _UploadProduceState extends State<UploadProduce> {
   Uint8List? _image;
   File? selectedIMage;
+  final Storage storage = Storage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MAppBar(
+      appBar: const MAppBar(
         showBackArrow: true,
       ),
       backgroundColor: MColors.textWhite,
@@ -33,38 +36,32 @@ class _UploadProduceState extends State<UploadProduce> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Center(
+              const Center(
                 child: Text('Add New Produce', style: TextStyle(fontFamily: 'DM Serif', fontSize: 32, color: MColors.accentColor)),
               ),
               ElevatedButton(
-                onPressed: () {
-                  showImagePickerOption(context);
-                },
+                onPressed: () => showImagePickerOption(context),
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<CircleBorder>(
+                        const CircleBorder())),
                 child: _image != null ? CircleAvatar(
                   radius: 100,
                   backgroundImage:
                       MemoryImage(_image!),
-                ) : CircleAvatar(
+                ) : const CircleAvatar(
                   radius: 100,
                   backgroundImage:
                   AssetImage('assets/images/upload/upload.png'),
                 ),
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<CircleBorder>(
-                        CircleBorder())),
               ),
               //SizedBox(height: 5),
               TextButton(
-                onPressed: () {
-                  showImagePickerOption(context);
-                },
-                child: Center(
+                onPressed: () => showImagePickerOption(context),
+                child: const Center(
                   child: Text('Add one photo', style: TextStyle(fontFamily: 'DM Sans', fontSize: 22, color: MColors.dark)),
                 ),
               ),
-              Text('supported formats are jpg,'),
-              Text('gif and png'),
-              SizedBox(height: MSizes.spaceBtwnSections),
+              const SizedBox(height: MSizes.spaceBtwnSections),
               Form(
                 child: Column(
                   children: [
@@ -105,9 +102,9 @@ class _UploadProduceState extends State<UploadProduce> {
                     const SizedBox(height: MSizes.spaceBtwnInputFields),
 
                     /// Description
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: Container(
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: SizedBox(
                         height: 60,
                         child: TextField(
                           minLines: 5,
@@ -131,19 +128,78 @@ class _UploadProduceState extends State<UploadProduce> {
                           decoration: const InputDecoration(labelText: 'Price')),
                     ),
                     const SizedBox(height: MSizes.spaceBtwnSections),
-                    
+
                     ///Upload Button
                     SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: ElevatedButton(
-                          onPressed: () => Get.to(() => HomeScreen()),
+                          onPressed: selectedIMage != null ? () async {
+                            final path = selectedIMage!.path;
+                            final fileName = path.split('/').last;
+
+                            try {
+                              final imageUrl = await storage.uploadFile(path, fileName);
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Upload successful')));
+                              
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen(imageUrl: imageUrl)));
+                            } catch (e){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Upload failed: $e'),
+                                ),
+                              );
+                            }
+                          } : null,
                           child: const Text('Upload'),
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    
+                    FutureBuilder(
+                        future: storage.listFiles(),
+                        builder: (BuildContext context, AsyncSnapshot<firebase_storage.ListResult> snapshot){
+                          if(snapshot.connectionState == ConnectionState.done && snapshot.hasData){
+                            return Container(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.items.length,
+                                itemBuilder: (BuildContext context, int index){
+                                  return ElevatedButton(
+                                    onPressed: (){},
+                                    child: Text(snapshot.data!.items[index].name),
+                                  );
+                                },
+                              ),
+                            );
+                          }
+                          if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData){
+                            return CircularProgressIndicator();
+                          }
+                          return Container();
+                      },
+                    ),
+                    FutureBuilder(
+                        future: storage.downloadURL('1000000034.jpg'),
+                        builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+                          if(snapshot.connectionState == ConnectionState.done && snapshot.hasData){
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 300, height: 250,
+                                child: Image.network(snapshot.data!, fit: BoxFit.cover),
+                              ),
+                            );
+                          }
+                          if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData){
+                            return CircularProgressIndicator();
+                          }
+                          return Container();
+                      },
+                    ),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
@@ -168,7 +224,7 @@ class _UploadProduceState extends State<UploadProduce> {
                 onTap: (){
                   _pickImageFromGallery();
                 },
-                child: SizedBox(
+                child: const SizedBox(
                   child: Column(
                     children: [
                       Icon(Icons.image, size: 70), Text('Gallery'),
@@ -182,7 +238,7 @@ class _UploadProduceState extends State<UploadProduce> {
                 onTap: (){
                   _pickImageFromCamera();
                 },
-                child: SizedBox(
+                child: const SizedBox(
                   child: Column(
                     children: [
                       Icon(Icons.camera_alt_outlined, size: 70), Text('Camera'),

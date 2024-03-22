@@ -17,31 +17,31 @@ class ResetPassword extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(onPressed: () => Get.to(() => LoginScreen()), icon: const Icon(CupertinoIcons.clear))
+          IconButton(onPressed: () => Get.to(() => const LoginScreen()), icon: const Icon(CupertinoIcons.clear))
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(MSizes.defaultSpace),
+          padding: const EdgeInsets.all(MSizes.defaultSpace),
           child: Column(
             children: [
               /// Image
-              Image(image: AssetImage(MImages.deliveredEmailIllustration), width: MHelperFunctions.screenWidth() * 0.6),
-              SizedBox(height: MSizes.spaceBtwnSections),
+              Image(image: const AssetImage(MImages.deliveredEmailIllustration), width: MHelperFunctions.screenWidth() * 0.6),
+              const SizedBox(height: MSizes.spaceBtwnSections),
 
               /// Title & Subtitle
               Text(Mtexts.changeYourPasswordTitle, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-              SizedBox(height: MSizes.spaceBtwnItems),
+              const SizedBox(height: MSizes.spaceBtwnItems),
               Text(Mtexts.changeYourPasswordSubtitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
-              SizedBox(height: MSizes.spaceBtwnSections),
+              const SizedBox(height: MSizes.spaceBtwnSections),
 
               /// Buttons
               SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(onPressed: () => Get.to(() => LoginScreen()), child: Text(Mtexts.done))),
+                  child: ElevatedButton(onPressed: () => Get.to(() => const LoginScreen()), child: const Text(Mtexts.done))),
               SizedBox(
                   width: double.infinity,
-                  child: TextButton(onPressed: (){}, child: Text(Mtexts.resendEmail))),
+                  child: TextButton(onPressed: (){}, child: const Text(Mtexts.resendEmail))),
             ],
           ),
         ),

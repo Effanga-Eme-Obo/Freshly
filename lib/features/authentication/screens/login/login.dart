@@ -25,27 +25,27 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// Logo, Title, Subtitle
-              MLoginHeader(),
+              const MLoginHeader(),
 
               /// Form
-              MLoginForm(),
+              const MLoginForm(),
 
               ///Divider
-              MFormDivider(dividerText: 'Or'),
+              const MFormDivider(dividerText: 'Or'),
 
-              SizedBox(height: MSizes.spaceBtwnSections),
+              const SizedBox(height: MSizes.spaceBtwnSections),
 
               ///Footer
-              MSocialButtons(),
+              const MSocialButtons(),
 
-              SizedBox(height: MSizes.spaceBtwnInputFields),
+              const SizedBox(height: MSizes.spaceBtwnInputFields),
               
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Don't have an account?", style: TextStyle(fontFamily: 'DM Sans', fontSize: 14, color: dark? MColors.white : Colors.black, fontWeight: FontWeight.bold)),
                   TextButton(
-                      onPressed: () => Get.to(() => SignupScreen()),
+                      onPressed: () => Get.to(() => const SignupScreen()),
                       child: Text('Sign up', style: TextStyle(fontFamily: 'DM Sans', fontSize: 15, color: dark? MColors.textSecondary : MColors.primaryColor))),
                   const SizedBox(height: MSizes.spaceBtwnItems),
                 ],

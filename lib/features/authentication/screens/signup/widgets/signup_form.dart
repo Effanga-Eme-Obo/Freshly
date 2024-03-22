@@ -1,5 +1,6 @@
 import 'package:freshly/features/authentication/screens/signup/verify_email.dart';
 import 'package:flutter/material.dart';
+import 'package:freshly/features/authentication/screens/signup/widgets/dropdown.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'mterms.dart';
@@ -41,16 +42,16 @@ class MSignupForm extends StatelessWidget {
             ],
           ),
           const SizedBox(height: MSizes.spaceBtwnInputFields),
-
+            
           /// Username
-          /*TextFormField(
+          TextFormField(
             expands: false,
             decoration: const InputDecoration(
                 labelText: Mtexts.username,
                 prefixIcon: Icon(Iconsax.user_edit)),
           ),
-          const SizedBox(height: MSizes.spaceBtwnInputFields),*/
-
+          const SizedBox(height: MSizes.spaceBtwnInputFields),
+            
           /// Email
           TextFormField(
             expands: false,
@@ -58,15 +59,23 @@ class MSignupForm extends StatelessWidget {
                 labelText: Mtexts.email, prefixIcon: Icon(Iconsax.direct)),
           ),
           const SizedBox(height: MSizes.spaceBtwnInputFields),
-
+            
           /// Phone Number
-          TextFormField(
-            expands: false,
-            decoration: const InputDecoration(
-                labelText: Mtexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
+          Row(
+            children: [
+              SizedBox(
+                width: 10,
+                child: DropdownWidget(),
+              ),
+              TextFormField(
+                expands: false,
+                decoration: const InputDecoration(
+                    labelText: Mtexts.phoneNo, prefixIcon: Icon(Iconsax.call)),
+              ),
+            ],
           ),
           const SizedBox(height: MSizes.spaceBtwnInputFields),
-
+            
           /// Password
           TextFormField(
             expands: false,
@@ -77,16 +86,16 @@ class MSignupForm extends StatelessWidget {
             ),
           ),
           const SizedBox(height: MSizes.spaceBtwnInputFields),
-
+            
           /// T's & C's
-          Mterms(),
+          const Mterms(),
           const SizedBox(height: MSizes.spaceBtwnSections),
-
+            
           /// Sign Up Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.to(() => VerifyEmailScreen()),
+              onPressed: () => Get.to(() => const VerifyEmailScreen()),
               child: const Text(Mtexts.createAccount),
             ),
           ),

@@ -9,11 +9,15 @@ import '../../../../../nav_menu.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 
-class MLoginForm extends StatelessWidget {
-  const MLoginForm({
-    super.key,
-  });
+class MLoginForm extends StatefulWidget {
+  const MLoginForm({super.key});
 
+  @override
+  State<MLoginForm> createState() => _MLoginFormState();
+}
+
+class _MLoginFormState extends State<MLoginForm> {
+  bool _passwordVisible = false;
   @override
   Widget build(BuildContext context) {
     final dark = MHelperFunctions.isDarkMode(context);
@@ -23,21 +27,32 @@ class MLoginForm extends StatelessWidget {
             vertical: MSizes.spaceBtwnSections),
         child: Column(
           children: [
+            /// E-mail
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: Mtexts.email,
               ),
             ),
-            SizedBox(height: MSizes.spaceBtwnInputFields),
+            const SizedBox(height: MSizes.spaceBtwnInputFields),
+
+            /// Password
             TextFormField(
+              obscureText: !_passwordVisible,
               decoration: InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check),
-                labelText: Mtexts.password,
-                suffixIcon: Icon(Iconsax.eye_slash),
+                  labelText: Mtexts.password,
+                  prefixIcon: Icon(Iconsax.password_check),
+                  suffixIcon: IconButton(
+                    icon: Icon(_passwordVisible ? Iconsax.eye : Iconsax.eye_slash),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  )
               ),
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -54,12 +69,12 @@ class MLoginForm extends StatelessWidget {
             SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () => Get.to(() => NavMenu()), child: Text(Mtexts.signIn, style: TextStyle(fontFamily: 'DM Sans', fontSize: 20)))),
+                    onPressed: () => Get.to(() => const NavMenu()), child: const Text(Mtexts.signIn, style: TextStyle(fontFamily: 'DM Sans', fontSize: 20)))),
             const SizedBox(height: 5),
 
             /// Forgot Password?
             TextButton(
-                onPressed: () => Get.to(() => ForgotPassword()),
+                onPressed: () => Get.to(() => const ForgotPassword()),
                 child: Text(Mtexts.forgotPassword, style: TextStyle(fontFamily: 'DM Sans', fontSize: 15, color: dark? MColors.primaryColor : Colors.black))),
             const SizedBox(height: MSizes.spaceBtwnItems),
           ],

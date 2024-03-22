@@ -7,7 +7,7 @@ class MFormatter{
   }
 
   static String formatCurrency(double amount){
-    return NumberFormat.currency(locale: 'en_NG', symbol: '\₦' ).format(amount);
+    return NumberFormat.currency(locale: 'en_NG', symbol: '₦' ).format(amount);
   }
 
   static String formatPhoneNumber(String phoneNumber){

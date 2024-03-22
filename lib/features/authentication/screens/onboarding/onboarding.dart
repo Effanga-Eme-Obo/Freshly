@@ -28,8 +28,8 @@ class OnboardingScreen extends StatelessWidget {
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   /// Onboarding Page 1
-                  Padding(
-                    padding: const EdgeInsets.only(top: 200.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 200.0),
                     child: Center(
                       child: CircleAvatar(
                         backgroundImage: AssetImage(MImages.onboardingImage1),
@@ -37,18 +37,18 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: MSizes.spaceBtwnSections),
-                  Text(Mtexts.onboardingTitle1, style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textPrimary, /*fontWeight: FontWeight.bold*/)),
-                  Text.rich(TextSpan(
+                  const SizedBox(height: MSizes.spaceBtwnSections),
+                  const Text(Mtexts.onboardingTitle1, style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textPrimary, /*fontWeight: FontWeight.bold*/)),
+                  const Text.rich(TextSpan(
                     children: [
                       TextSpan(text: '${Mtexts.farm2App} ', style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
                       TextSpan(text: '${Mtexts.store} ', style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textPrimary, /*fontWeight: FontWeight.bold*/)),
                     ],
                   )),
-                  SizedBox(height: MSizes.spaceBtwnSections),
+                  const SizedBox(height: MSizes.spaceBtwnSections),
                   //SizedBox(height: MSizes.spaceBtwnSections),
-                  Container( alignment: Alignment.center, child: Text(Mtexts.onboardingSubTitle1)),
-                  Container( alignment: Alignment.center, child: Text(Mtexts.onboardingSubTitle1b)),
+                  Container( alignment: Alignment.center, child: const Text(Mtexts.onboardingSubTitle1)),
+                  Container( alignment: Alignment.center, child: const Text(Mtexts.onboardingSubTitle1b)),
                   ],
               ),
 
@@ -56,8 +56,8 @@ class OnboardingScreen extends StatelessWidget {
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   /// Onboarding Page 2
-                  Padding(
-                    padding: const EdgeInsets.only(top: 200.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 200.0),
                     child: Center(
                       child: CircleAvatar(
                         backgroundImage: AssetImage(MImages.onboardingImage2),
@@ -65,18 +65,18 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: MSizes.spaceBtwnSections),
-                  Text.rich(TextSpan(
+                  const SizedBox(height: MSizes.spaceBtwnSections),
+                  const Text.rich(TextSpan(
                     children: [
                       TextSpan(text: '${Mtexts.onboardingTitle2} ', style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textPrimary, /*fontWeight: FontWeight.bold*/)),
                       TextSpan(text: '${Mtexts.your} ', style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
                     ],
                   )),
-                  Text(Mtexts.reach, style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
-                  SizedBox(height: MSizes.spaceBtwnSections),
+                  const Text(Mtexts.reach, style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
+                  const SizedBox(height: MSizes.spaceBtwnSections),
                   //SizedBox(height: MSizes.spaceBtwnSections),
-                  Container( alignment: Alignment.center, child: Text(Mtexts.onboardingSubTitle2)),
-                  Container( alignment: Alignment.center, child: Text(Mtexts.onboardingSubTitle2b)),
+                  Container( alignment: Alignment.center, child: const Text(Mtexts.onboardingSubTitle2)),
+                  Container( alignment: Alignment.center, child: const Text(Mtexts.onboardingSubTitle2b)),
                 ],
               ),
 
@@ -84,8 +84,8 @@ class OnboardingScreen extends StatelessWidget {
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   /// Onboarding Page 3
-                  Padding(
-                    padding: const EdgeInsets.only(top: 200.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 200.0),
                     child: Center(
                       child: CircleAvatar(
                         backgroundImage: AssetImage(MImages.onboardingImage3),
@@ -93,18 +93,18 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: MSizes.spaceBtwnSections),
-                  Text.rich(TextSpan(
+                  const SizedBox(height: MSizes.spaceBtwnSections),
+                  const Text.rich(TextSpan(
                     children: [
                       TextSpan(text: '${Mtexts.onboardingTitle3} ', style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textPrimary, /*fontWeight: FontWeight.bold*/)),
                       TextSpan(text: '${Mtexts.sales} ', style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
                     ],
                   )),
-                  Text(Mtexts.mgmt, style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
-                  SizedBox(height: MSizes.spaceBtwnSections),
+                  const Text(Mtexts.mgmt, style: TextStyle(fontFamily: 'DM Serif', fontSize: 34, color: MColors.textSecondary, /*fontWeight: FontWeight.bold*/)),
+                  const SizedBox(height: MSizes.spaceBtwnSections),
                   //SizedBox(height: MSizes.spaceBtwnSections),
-                  Container( alignment: Alignment.center, child: Text(Mtexts.onboardingSubTitle3)),
-                  Container( alignment: Alignment.center, child: Text(Mtexts.onboardingSubTitle3b)),
+                  Container( alignment: Alignment.center, child: const Text(Mtexts.onboardingSubTitle3)),
+                  Container( alignment: Alignment.center, child: const Text(Mtexts.onboardingSubTitle3b)),
                 ],
               ),
             ],
@@ -118,7 +118,7 @@ class OnboardingScreen extends StatelessWidget {
           const OnboardingDotNavigation(),
 
           /// Circular Button
-          OnboardingNextButton(),
+          const OnboardingNextButton(),
         ],
       ),
     );

@@ -18,30 +18,30 @@ class VerifyEmailScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(onPressed: () => Get.offAll(() => LoginScreen()), icon: Icon(CupertinoIcons.clear))
+          IconButton(onPressed: () => Get.offAll(() => const LoginScreen()), icon: const Icon(CupertinoIcons.clear))
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(MSizes.defaultSpace),
+          padding: const EdgeInsets.all(MSizes.defaultSpace),
           child: Column(
             children: [
               /// Image
-              Image(image: AssetImage(MImages.deliveredEmailIllustration), width: MHelperFunctions.screenWidth() * 0.6),
-              SizedBox(height: MSizes.spaceBtwnSections),
+              Image(image: const AssetImage(MImages.deliveredEmailIllustration), width: MHelperFunctions.screenWidth() * 0.6),
+              const SizedBox(height: MSizes.spaceBtwnSections),
 
               /// Title & Subtitle
               Text(Mtexts.confirmEmail, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-              SizedBox(height: MSizes.spaceBtwnItems),
+              const SizedBox(height: MSizes.spaceBtwnItems),
               Text('emeoboeffanga@gmail.com', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
-              SizedBox(height: MSizes.spaceBtwnItems),
+              const SizedBox(height: MSizes.spaceBtwnItems),
               Text(Mtexts.confirmEmailSubtitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
-              SizedBox(height: MSizes.spaceBtwnSections),
+              const SizedBox(height: MSizes.spaceBtwnSections),
 
               /// Buttons
-              SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => SuccessScreen(onPressed: () => Get.to(() => LoginScreen()), image: MImages.staticSuccessIllustration, title: Mtexts.yourAccountCreatedTitle, subTitle: Mtexts.yourAccountCreatedSubTitle, )), child: Text(Mtexts.mContinue))),
-              SizedBox(height: MSizes.spaceBtwnItems),
-              SizedBox(width: double.infinity, child: TextButton(onPressed: (){}, child: Text(Mtexts.resendEmail))),
+              SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => SuccessScreen(onPressed: () => Get.to(() => const LoginScreen()), image: MImages.staticSuccessIllustration, title: Mtexts.yourAccountCreatedTitle, subTitle: Mtexts.yourAccountCreatedSubTitle, )), child: const Text(Mtexts.mContinue))),
+              const SizedBox(height: MSizes.spaceBtwnItems),
+              SizedBox(width: double.infinity, child: TextButton(onPressed: (){}, child: const Text(Mtexts.resendEmail))),
             ],
           ),
         ),

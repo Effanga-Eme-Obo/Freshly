@@ -15,7 +15,7 @@ class MCartCounterIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        IconButton(onPressed: onPressed, icon: Icon(Iconsax.shopping_bag, color: MColors.white)),
+        IconButton(onPressed: onPressed, icon: const Icon(Iconsax.shopping_bag, color: MColors.white)),
         Positioned(
           right: 0,
           child: Container(

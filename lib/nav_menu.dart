@@ -1,5 +1,5 @@
 import 'package:freshly/features/shop/screens/settings/settings.dart';
-import 'package:freshly/features/shop/screens/upload/upload.dart';
+import 'package:freshly/features/shop/screens/upload/add_produce.dart';
 import 'package:freshly/utils/constants/colors.dart';
 import 'package:freshly/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -26,17 +26,19 @@ class NavMenu extends StatelessWidget {
           destinations: [
             NavigationDestination(icon: controller.selectedIndex.value == 0
                 ? Icon(Iconsax.home_25, color: darkMode ? MColors.primaryColor : MColors.primaryColor, size: 30,) // Selected icon
-                : Icon(Iconsax.home_2, color: MColors.primaryColor, size: 30,),label: ''),
-            NavigationDestination(icon: Icon(Iconsax.search_normal_1, size: 30, color: MColors.primaryColor,), label: ''),
+                : const Icon(Iconsax.home_2, color: MColors.primaryColor, size: 30,),label: ''),
+            NavigationDestination(icon: controller.selectedIndex.value == 1
+                ? Icon(Iconsax.search_normal_1, color: darkMode ? MColors.primaryColor : MColors.primaryColor, size: 30,) // Selected icon
+                : const Icon(Iconsax.search_normal_1, weight: 90, color: MColors.primaryColor, size: 30),label: ''),
             NavigationDestination(icon: controller.selectedIndex.value == 2
-                ? Icon(Iconsax.add5, color: darkMode ? MColors.primaryColor : MColors.primaryColor, size: 55,) // Selected icon
-                : Icon(Iconsax.add_square, color: MColors.primaryColor, size: 55),label: ''),
+                ? Icon(Iconsax.add_circle5, color: darkMode ? MColors.primaryColor : MColors.primaryColor, size: 55,) // Selected icon
+                : const Icon(Iconsax.add_circle, color: MColors.primaryColor, size: 55),label: ''),
             NavigationDestination(icon: controller.selectedIndex.value == 3
                 ? Icon(Iconsax.message5, color: darkMode ? MColors.primaryColor : MColors.primaryColor, size: 30,) // Selected icon
-                : Icon(Iconsax.message, color: MColors.primaryColor, size: 30,),label: ''),
+                : const Icon(Iconsax.message, color: MColors.primaryColor, size: 30,),label: ''),
             NavigationDestination(icon: controller.selectedIndex.value == 4
                 ? Icon(Iconsax.profile_circle5, color: darkMode ? MColors.primaryColor : MColors.primaryColor, size: 30,) // Selected icon
-                : Icon(Iconsax.profile_circle, color: MColors.primaryColor, size: 30,),label: ''),
+                : const Icon(Iconsax.profile_circle, color: MColors.primaryColor, size: 30,),label: ''),
           ],
         ),
       ),
@@ -48,5 +50,5 @@ class NavMenu extends StatelessWidget {
 class NavController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const HomeScreen(), Container(color: Colors.purple), const UploadProduce(), Container(color: Colors.blue), const SettingsScreen()];
+  final screens = [const HomeScreen(imageUrl: '',), Container(color: Colors.purple), const AddProduce(), Container(color: Colors.blue), const SettingsScreen()];
 }
