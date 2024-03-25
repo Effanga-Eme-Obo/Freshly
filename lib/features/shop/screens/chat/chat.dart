@@ -6,11 +6,13 @@ import 'package:iconsax/iconsax.dart';
 
 final _fireStore = FirebaseFirestore.instance;
 User? loggedInUser;
+String? recipientId;
 
 class ChatScreen extends StatefulWidget {
   final String email;
+  final String name;
 
-  const ChatScreen({Key? key, required this.email}) : super(key: key);
+  const ChatScreen({Key? key, required this.name, required this.email}) : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -22,14 +24,18 @@ class _ChatScreenState extends State<ChatScreen> {
   late String messageText;
 
   Stream<QuerySnapshot> _chatStream() {
-    final currentUser = _auth.currentUser;
-    //final recipientId =
+    String chatId = generateChatId(loggedInUser!.email!, recipientId!);
+    if(loggedInUser?.email == null || recipientId == null){
+      return Stream.empty();
+    }
+    final currentUser = _auth.currentUser?.email;
+
     return FirebaseFirestore.instance
         .collection('messages')
         // This query assumes you want to fetch messages where the current user
         // is either the sender or receiver, and the same for widget.userId.
         // Adjust the logic as per your database schema and requirements.
-        .where('participants', arrayContains: currentUser?.uid)
+        .where('participants', arrayContainsAny: [currentUser, recipientId])
         .orderBy('timestamp', descending: true)
         .snapshots();
   }
@@ -38,6 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
+    fetchRecipientIdByEmail(widget.email);
   }
 
   void getCurrentUser() {
@@ -47,15 +54,31 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void fetchRecipientIdByEmail(String email) async {
+    setState(() {
+      recipientId = email;
+    });
+  }
+
+  String generateChatId(String userEmail, recipientEmail){
+    List<String> ids = [userEmail, recipientEmail];
+    ids.sort();
+    return ids.join('_');
+  }
+
   void sendMessage() {
-    if (messageText.trim().isNotEmpty) {
+    if (messageText.trim().isNotEmpty && loggedInUser?.email != null) {
+      String chatId = generateChatId(loggedInUser!.email!, recipientId!);
       _fireStore.collection('messages').add({
         'text': messageText,
-        'sender': loggedInUser?.uid,
-        'timstamp': FieldValue.serverTimestamp(),
+        'sender': loggedInUser!.email,
+        'recipient': recipientId,
+        'participants': [loggedInUser!.email, recipientId],
+        'chatId': chatId,
+        'timestamp': FieldValue.serverTimestamp(),
       });
       messageTextController.clear();
-      messageText = '';
+      //messageText = '';
     }
   }
 
@@ -72,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.email,
+                Text(widget.name,
                     style: TextStyle(
                         fontFamily: 'DM Sans',
                         fontSize: 22,
@@ -94,8 +117,33 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: MessageStream(
-                email: widget.email), // This will display the list of messages
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _chatStream(), // Use your _chatStream method here.
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                final messages = snapshot.data?.docs ?? [];
+                return ListView(
+                  reverse: true,
+                  children: messages.map((message) {
+                    final messageData = message.data() as Map<String, dynamic>;
+                    final messageText = messageData['text'] ?? '';
+                    final messageSender = messageData['sender'];
+                    final isSender = loggedInUser?.email == messageSender;
+                    //final currentUserEmail = loggedInUser?.email;
+
+                    return MessageBubble(
+                      message: messageText,
+                      isSender: isSender,
+                    );
+                  }).toList(),
+                );
+              },
+            ),
           ),
           Container(
             padding: EdgeInsets.all(8.0),

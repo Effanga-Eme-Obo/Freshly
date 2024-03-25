@@ -53,7 +53,7 @@ class _MessageScreenState extends State<MessageScreen> {
         itemBuilder: (context, index) {
           final user = _userList[index];
           return ListTile(
-            onTap: () => Get.to(() => ChatScreen(email: '${user['firstName']} ${user['lastName']}')), // Pass the user ID to the chat screen
+            onTap: () => Get.to(() => ChatScreen(name: '${user['firstName']} ${user['lastName']}', email: user['email'])), // Pass the user ID to the chat screen
             leading: CircleAvatar(
               child: Text('${user['firstName'][0]}${user['lastName'][0]}'),
             ),
