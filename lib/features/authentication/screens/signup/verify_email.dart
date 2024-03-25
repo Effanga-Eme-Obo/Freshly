@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freshly/common/widgets/success_screen/success_screen.dart';
 import 'package:freshly/features/authentication/screens/login/login.dart';
+import 'package:freshly/resources/auth_services.dart';
 import 'package:freshly/utils/helpers/helper_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,9 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key});
+  VerifyEmailScreen({super.key});
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class VerifyEmailScreen extends StatelessWidget {
               /// Title & Subtitle
               Text(Mtexts.confirmEmail, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
               const SizedBox(height: MSizes.spaceBtwnItems),
-              Text('emeoboeffanga@gmail.com', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
+              Text('${user?.email}', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
               const SizedBox(height: MSizes.spaceBtwnItems),
               Text(Mtexts.confirmEmailSubtitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
               const SizedBox(height: MSizes.spaceBtwnSections),
@@ -41,7 +45,7 @@ class VerifyEmailScreen extends StatelessWidget {
               /// Buttons
               SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => SuccessScreen(onPressed: () => Get.to(() => const LoginScreen()), image: MImages.staticSuccessIllustration, title: Mtexts.yourAccountCreatedTitle, subTitle: Mtexts.yourAccountCreatedSubTitle, )), child: const Text(Mtexts.mContinue))),
               const SizedBox(height: MSizes.spaceBtwnItems),
-              SizedBox(width: double.infinity, child: TextButton(onPressed: (){}, child: const Text(Mtexts.resendEmail))),
+              SizedBox(width: double.infinity, child: TextButton(onPressed: (){AuthService().sendEmailVerification();}, child: const Text(Mtexts.resendEmail))),
             ],
           ),
         ),

@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -23,13 +20,15 @@ class StoreData{
   }
 
 static  Future<String> uploadProduce({required String category, required String title, required String quantity, required String description, required double price, required  XFile file}) async {
-    try {
+   final user = FirebaseAuth.instance.currentUser;
+   try {
       String pid = Uuid().v4();//d85b55f0-18da-4eae-9e4b-16e04ff3c747
 
      String image = await uploadImageToStorage(pid, file);
    await _firestore.collection('Product').doc(pid).set({
       'pid':pid,
-    'category': category,
+      'id':user?.uid,
+      'category': category,
       'title':title,
       'quantity':quantity,
       'description':description,
@@ -39,7 +38,7 @@ static  Future<String> uploadProduce({required String category, required String 
     print('SUCESSSFUL+____------------------------------------------');
     }
         catch(error){
-
+          throw Exception(error);
         }
         return '';
   }

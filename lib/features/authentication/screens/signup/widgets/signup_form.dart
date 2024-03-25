@@ -95,7 +95,7 @@ class MSignupForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.to(() => const VerifyEmailScreen()),
+              onPressed: () => Get.to(() => VerifyEmailScreen()),
               child: const Text(Mtexts.createAccount),
             ),
           ),

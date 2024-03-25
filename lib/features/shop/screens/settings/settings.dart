@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freshly/common/widgets/appbar/appbar.dart';
 import 'package:freshly/features/authentication/screens/login/login.dart';
 import 'package:freshly/features/shop/screens/settings/change_password.dart';
 import 'package:freshly/features/shop/screens/settings/edit_profile.dart';
 import 'package:freshly/features/shop/screens/settings/widgets/toggle_switch.dart';
+import 'package:freshly/resources/auth_services.dart';
 import 'package:freshly/utils/constants/colors.dart';
 import 'package:freshly/utils/constants/sizes.dart';
 import 'package:get/get.dart';
@@ -11,7 +13,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  SettingsScreen({super.key});
+
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +57,7 @@ class SettingsScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Ayoola Favour', style: TextStyle(fontSize: 24, color: MColors.accentColor)),
+                        Text('${user?.displayName}', style: const TextStyle(fontSize: 24, color: MColors.accentColor)),
                         const Text('Ikenne, Ogun State', style: TextStyle(fontSize: 16)),
                         TextButton(onPressed: () => Get.to(() => const EditProfile()), child: const Text('Edit Profile', style: TextStyle(fontSize: 20, color: MColors.textSecondary, decoration: TextDecoration.underline, decorationColor: MColors.textSecondary)))
                       ],
@@ -83,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
 
                       /// Change Password
                       TextButton(
-                        onPressed: () => Get.to(() => ChangePassword()), 
+                        onPressed: () => Get.to(() => const ChangePassword()),
                         style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all(MColors.black),
                           ),
@@ -197,7 +202,10 @@ class SettingsScreen extends StatelessWidget {
                               child: const Text('No', style: TextStyle(fontFamily: 'DM Sans', fontSize: 20)),
                               ),
                             DialogButton(
-                              onPressed: () => Get.to(() => const LoginScreen()),
+                              onPressed: () {
+                                AuthService().signOut();
+                                Get.to(() => const LoginScreen());
+                              },
                               color: MColors.error,
                               child: const Text('Log Out', style: TextStyle(fontFamily: 'DM Sans', fontSize: 20),),
                               ),

@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:freshly/common/widgets/appbar/appbar.dart';
+import 'package:freshly/navbar.dart';
 import 'package:freshly/resources/add_data.dart';
 import 'package:freshly/utils/constants/colors.dart';
 import 'package:freshly/utils/constants/sizes.dart';
 import 'package:freshly/utils/imagepicker/image_picker.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,44 +34,45 @@ class _AddProduceState extends State<AddProduce> {
     });
   }
 
-  void uploadProduce(){
-    if(_image ==null ) return;
-  StoreData.uploadProduce(category: categoryController.text, title: titleController.text, quantity: quantityController.text, description: descriptionController.text, price:double.parse( priceController.text), file: _image!);
+  void uploadProduce() {
+    if (_image == null) return;
+    StoreData.uploadProduce(
+      category: categoryController.text,
+      title: titleController.text,
+      quantity: quantityController.text,
+      description: descriptionController.text,
+      price: double.parse(priceController.text),
+      file: _image!,
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MAppBar(
-        showBackArrow: true,
+      appBar: const MAppBar(
+        showBackArrow: false,
+        title: Center(
+          child: Text('Add New Produce', style: TextStyle(fontFamily: 'DM Serif', fontSize: 30, fontWeight: FontWeight.normal)),
+        ),
       ),
       body: Expanded(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Center(
-                child: Text(
-                  'Add New Produce',
-                  style: TextStyle(
-                    fontFamily: 'DM Serif',
-                    fontSize: 32,
-                    color: MColors.accentColor,
-                  ),
-                ),
-              ),
               TextButton(
-                onPressed: selectImage,
-                child: _image != null
-                ? CircleAvatar(
-                radius: 100,
-                backgroundImage: FileImage(File(_image!.path)))
-                : CircleAvatar(
-                  radius: 100,
-                  backgroundImage: AssetImage('assets/images/upload/upload.png'),
-                  )
-              ),
+                  onPressed: selectImage,
+                  child: _image != null
+                      ? CircleAvatar(
+                          radius: 100,
+                          backgroundImage: FileImage(File(_image!.path)))
+                      : const CircleAvatar(
+                          radius: 100,
+                          backgroundImage:
+                              AssetImage('assets/images/upload/upload.png'),
+                        )),
               TextButton(
-                onPressed: (){},
-                child: Text(
+                onPressed: () {},
+                child: const Text(
                   'Add one photo',
                   style: TextStyle(
                     fontFamily: 'DM Sans',
@@ -78,68 +81,74 @@ class _AddProduceState extends State<AddProduce> {
                   ),
                 ),
               ),
-              SizedBox(height: MSizes.spaceBtwnSections),
+              const SizedBox(height: MSizes.spaceBtwnSections),
               Form(
-                  child: Column(
-                    children: [
-                      /// Category
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: TextFormField(
-                          controller: categoryController,
-                          expands: false,
-                          decoration: const InputDecoration(labelText: 'Category', labelStyle: TextStyle()),
-                        ),
+                child: Column(
+                  children: [
+                    /// Category
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: TextFormField(
+                        controller: categoryController,
+                        expands: false,
+                        decoration: const InputDecoration(
+                            labelText: 'Category', labelStyle: TextStyle()),
                       ),
-                      const SizedBox(height: MSizes.spaceBtwnInputFields),
+                    ),
+                    const SizedBox(height: MSizes.spaceBtwnInputFields),
 
-                      /// Title
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: TextFormField(
-                          controller: titleController,
-                          expands: false,
-                          decoration: const InputDecoration(labelText: 'Title', labelStyle: TextStyle()),
-                        ),
+                    /// Title
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: TextFormField(
+                        controller: titleController,
+                        expands: false,
+                        decoration: const InputDecoration(
+                            labelText: 'Title', labelStyle: TextStyle()),
                       ),
-                      const SizedBox(height: MSizes.spaceBtwnInputFields),
+                    ),
+                    const SizedBox(height: MSizes.spaceBtwnInputFields),
 
-                      /// Quantity
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: TextFormField(
-                          controller: quantityController,
-                          expands: false,
-                          decoration: const InputDecoration(labelText: 'Quantity', labelStyle: TextStyle()),
-                        ),
+                    /// Quantity
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: TextFormField(
+                        controller: quantityController,
+                        //keyboardType: TextInputType.number,
+                        expands: false,
+                        decoration: const InputDecoration(
+                            labelText: 'Quantity', labelStyle: TextStyle()),
                       ),
-                      const SizedBox(height: MSizes.spaceBtwnInputFields),
+                    ),
+                    const SizedBox(height: MSizes.spaceBtwnInputFields),
 
-                      /// Description
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: TextFormField(
-                          controller: descriptionController,
-                          expands: false,
-                          decoration: const InputDecoration(labelText: 'Description', labelStyle: TextStyle()),
-                        ),
+                    /// Description
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: TextFormField(
+                        controller: descriptionController,
+                        expands: false,
+                        decoration: const InputDecoration(
+                            labelText: 'Description', labelStyle: TextStyle()),
                       ),
-                      const SizedBox(height: MSizes.spaceBtwnInputFields),
+                    ),
+                    const SizedBox(height: MSizes.spaceBtwnInputFields),
 
-                      /// Price
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: TextFormField(
-                          controller: priceController,
-                          keyboardType: TextInputType.number,
-                          expands: false,
-                          decoration: const InputDecoration(labelText: 'Price', labelStyle: TextStyle()),
-                        ),
+                    /// Price
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: TextFormField(
+                        controller: priceController,
+                        keyboardType: TextInputType.number,
+                        expands: false,
+                        decoration: const InputDecoration(
+                            labelText: 'Price', labelStyle: TextStyle()),
                       ),
-                      const SizedBox(height: MSizes.spaceBtwnInputFields),
+                    ),
+                    const SizedBox(height: MSizes.spaceBtwnInputFields),
 
-                      /// Price
-                      /*Padding(
+                    /// Price
+                    /*Padding(
                           padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                           child: TextFormField(
                             expands: false,
@@ -153,20 +162,23 @@ class _AddProduceState extends State<AddProduce> {
                       ),
                       const SizedBox(height: MSizes.spaceBtwnInputFields),*/
 
-                      /// Upload
-                      SizedBox(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: ElevatedButton(
-                            onPressed: uploadProduce,
-                            child: const Text('Upload'),
-                          ),
+                    /// Upload
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            uploadProduce();
+                            Get.to(const NavBar());
+                            },
+                          child: const Text('Upload'),
                         ),
                       ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
               )
             ],
           ),

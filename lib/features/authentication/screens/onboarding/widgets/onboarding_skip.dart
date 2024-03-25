@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freshly/features/authentication/screens/login/login.dart';
+import 'package:get/get.dart';
 import '../../../../../utils/constants//sizes.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/device/device_utility.dart';
@@ -17,7 +19,7 @@ class OnboardingSkip extends StatelessWidget {
         left: MSizes.defaultSpace,
         bottom: MDeviceUtils.getBottomNavigationBarHeight(),
         child: TextButton(
-          onPressed: () => OnboardingController.instance.skipPage(),
+          onPressed: () => Get.to(() => LoginScreen()),
           child: Text('Skip', style: TextStyle(fontFamily: 'DM Sans', fontWeight: FontWeight.bold, fontSize: 19, color: dark? MColors.primaryColor : Colors.black)),
         ));
   }
