@@ -23,16 +23,19 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   void fetchUsers() async {
+    final currentUser = FirebaseAuth.instance.currentUser; // Get the current logged-in user
     final users = await FirebaseFirestore.instance.collection('Users').get();
-    // Assuming each user document contains fields 'name' and 'uid'
-
+    
     final List<Map<String, dynamic>> userList = [];
     for (var doc in users.docs) {
-      userList.add({
-        'firstName': doc['firstName'], // Assuming 'name' is a field in each user document
-        'lastName': doc['lastName'],
-        'email': doc['email'], // Document ID
-      });
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      if (currentUser!.email != data['email']) { // Check if the document is not the current user
+        userList.add({
+          'firstName': data['firstName'], // Assuming 'firstName' is a field in each user document
+          'lastName': data['lastName'],
+          'email': data['email'], // Assuming 'email' is a field in each user document
+        });
+      }
     }
 
     setState(() {
@@ -40,7 +43,6 @@ class _MessageScreenState extends State<MessageScreen> {
     });
   }
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,12 +55,12 @@ class _MessageScreenState extends State<MessageScreen> {
         itemBuilder: (context, index) {
           final user = _userList[index];
           return ListTile(
-            onTap: () => Get.to(() => ChatScreen(name: '${user['firstName']} ${user['lastName']}', email: user['email'])), // Pass the user ID to the chat screen
+            onTap: () => Get.to(() => ChatScreen(name: '${user['firstName']} ${user['lastName']}', email: user['email'])), // Navigate to chat screen
             leading: CircleAvatar(
-              child: Text('${user['firstName'][0]}${user['lastName'][0]}'),
+              child: Text('${user['firstName'][0]}${user['lastName'][0]}'), // Initials of the user
             ),
-            title: Text('${user['firstName']} ${user['lastName']}'),
-            subtitle: Text('Tap to chat', style: TextStyle(color: MColors.dark.withOpacity(0.5))),
+            title: Text('${user['firstName']} ${user['lastName']}'), // Full name of the user
+            subtitle: Text('Tap to chat', style: TextStyle(color: Colors.grey.withOpacity(0.5))),
           );
         },
       ),

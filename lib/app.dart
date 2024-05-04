@@ -1,6 +1,6 @@
+import 'package:freshly/features/authentication/auth_gate.dart';
 import 'package:freshly/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:freshly/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:get/get.dart';
 
 class App extends StatelessWidget {
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: MelonAppTheme.lightTheme,
       darkTheme: MelonAppTheme.darkTheme,
-      home: const OnboardingScreen(),
+      home: const AuthGate(),
     );
   }
 }

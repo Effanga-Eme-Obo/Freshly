@@ -1,19 +1,12 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:freshly/common/widgets/appbar/appbar.dart';
 import 'package:freshly/features/shop/screens/upload/add_produce.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import 'package:freshly/resources/add_data.dart';
-import 'package:intl/intl.dart';
 import '../../../../common/widgets/custom_shapes/containers/circular_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
