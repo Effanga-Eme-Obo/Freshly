@@ -7,6 +7,7 @@ import 'package:freshly/features/shop/screens/upload/add_produce.dart';
 import 'package:freshly/utils/constants/colors.dart';
 import 'package:iconsax/iconsax.dart';
 
+
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
@@ -21,7 +22,7 @@ class _NavBarState extends State<NavBar> {
     HomeScreen(imageUrl: ''),
     const SearchProduce(),
     const AddProduce(),
-    const MessageScreen(),
+    const ChatScreen(),
     SettingsScreen(),
   ];
 

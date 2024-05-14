@@ -25,6 +25,7 @@ class AuthService {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
+        'uid': userCredential.user!.uid,
         'phoneNo': phoneNo,
         'password':password,
         //'profilePhoto':profilePic,
