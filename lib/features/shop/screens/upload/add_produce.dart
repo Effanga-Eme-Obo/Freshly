@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:freshly/common/widgets/appbar/appbar.dart';
 import 'package:freshly/navbar.dart';
 import 'package:freshly/resources/add_data.dart';
@@ -11,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../../utils/formatters/thousands_seperator.dart';
 
 class AddProduce extends StatefulWidget {
   const AddProduce({super.key});
@@ -38,10 +41,10 @@ class _AddProduceState extends State<AddProduce> {
     if (_image == null) return;
     StoreData.uploadProduce(
       category: categoryController.text,
-      title: titleController.text,
-      quantity: quantityController.text,
-      description: descriptionController.text,
-      price: double.parse(priceController.text),
+      title: titleController.text.trim(),
+      quantity: quantityController.text.trim(),
+      description: descriptionController.text.trim(),
+      price: double.parse(priceController.text.trim()),
       file: _image!,
     );
   }
@@ -140,6 +143,7 @@ class _AddProduceState extends State<AddProduce> {
                       child: TextFormField(
                         controller: priceController,
                         keyboardType: TextInputType.number,
+                        inputFormatters: [ThousandsSeparatorInputFormatter()],
                         expands: false,
                         decoration: const InputDecoration(
                             labelText: 'Price', labelStyle: TextStyle()),
@@ -187,3 +191,5 @@ class _AddProduceState extends State<AddProduce> {
     );
   }
 }
+
+

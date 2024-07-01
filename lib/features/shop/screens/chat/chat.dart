@@ -6,6 +6,7 @@ import 'package:freshly/utils/constants/colors.dart';
 
 import '../../../../resources/chat_services.dart';
 
+
 class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
   final String receiverUserId;
